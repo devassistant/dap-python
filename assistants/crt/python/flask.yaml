@@ -16,6 +16,9 @@ dependencies_eclipse:
 dependencies_vim:
 - use: vim.dependencies
 
+dependencies_rpm:
+- use: tito.dependencies
+
 args:
   name:
     use: common_args
@@ -32,6 +35,9 @@ args:
   venv:
     use: common_args
 
+  rpm:
+    use: common_args
+
 files:
   gitignore: &gitignore
     source: ../.gitignore
@@ -41,6 +47,14 @@ files:
     source: index.html
   managepy: &managepy
     source: manage.py
+  license: &license
+    source: LICENSE
+  specfile: &specfile
+    source: flask.spec
+  application: &application
+    source: application
+  httpdconf: &httpdconf
+    source: httpd.flask.conf
 
 run:
 - setup_project_dir:
@@ -62,11 +76,16 @@ run:
 - cl: mkdir -p "$basename/static" "$basename/templates"
 - cl: cp *managepy .
 - cl: chmod +x manage.py
-- cl: sed -i "s|NAME|$basename|" manage.py
+- cl: sed -i "s|NAME|$basename|g" manage.py
 - cl: cp *initpy "$basename"
 - cl: cp *indexhtml "$basename/templates/"
-- cl: sed -i "s|NAME|$basename|" "$basename/templates/index.html"
+- cl: sed -i "s|NAME|$basename|g" "$basename/templates/index.html"
 - cl: touch "$basename/static/style.css"
+- cl: cp *license ./
+- cl: cp *application ./
+- cl: sed -i "s|NAME|$basename|g" application
+- cl: cp *httpdconf "./httpd.$basename.conf"
+- cl: sed -i "s|NAME|$basename|g" "./httpd.$basename.conf"
 - if defined $vim:
   - use: vim.run
 - if $eclipse:
@@ -75,6 +94,12 @@ run:
 - use: git_init_add_commit.run
 - if defined $github:
   - github: create_and_push
+- if defined $rpm:
+  - cl: cp *specfile ./$basename.spec
+  - cl: sed -i "s|NAME|$basename|g" ./$basename.spec
+  - cl: git add ./$basename.spec
+  - cl: git commit -m 'Adding initial spec file'
+  - use: tito.run
 - log_i: 'Flask project $basename in $dirname has been created.'
 - if $venv:
   - log_i: 'To switch to the created virtualenv, use "source ${dirname}/${basename}/bin/activate"'
