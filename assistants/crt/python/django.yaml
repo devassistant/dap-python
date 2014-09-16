@@ -79,7 +79,8 @@ run:
 
 - if $docker:
   - $docker_image~:
-    - docker_build: .
+    - docker_build:
+        path: .
 
 - log_i: 'Django project $basename in $dirname has been created.'
 - if $venv:
