@@ -49,7 +49,7 @@ run:
 - if $py3 and $venv:
   # check that we have at least Python 3.4, which has bundled pip and setuptools
   - if $(python3 -c "import sys; sys.exit(sys.version_info[1] > 3)"):
-    - log_e: "Django assistant requires Python3 >= 3.4 if using --venv."
+    - log_e: "Django assistant requires Python3 >= 3.4 if using --venv and --py3 together."
 
 - setup_project_dir:
     from: $name
