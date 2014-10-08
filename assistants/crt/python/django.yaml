@@ -3,9 +3,9 @@ description: 'Django assistant will help you create a basic Django project and i
 
 dependencies:
 - use: super.dependencies
-- if $venv:
-  - rpm: ['python${py3}-virtualenv']
-- else:
+- if $venv and not $py3:
+  - rpm: ['python-virtualenv']
+- if not $venv:
   - rpm: ['python${py3}-django']
 
 dependencies_eclipse:
@@ -47,8 +47,10 @@ files:
 
 run:
 - if $py3 and $venv:
-  # TODO: fix this
-  - log_e: Virtualenv is currently unsupported with Python 3.
+  # check that we have at least Python 3.4, which has bundled pip and setuptools
+  - if $(python3 -c "import sys; sys.exit(sys.version_info[1] > 3)"):
+    - log_e: "Django assistant requires Python3 >= 3.4 if using --venv."
+
 - setup_project_dir:
     from: $name
     on_existing: fail
@@ -101,7 +103,10 @@ run:
 
 run_startproject: # also creates requirements.txt if $venv is used
 - if $venv:
-  - cl_i: virtualenv "$basename"
+  - if $py3:
+    - cl_i: pyvenv "$basename"
+  - else:
+    - cl_i: virtualenv "$basename"
   - cl: cd "$basename"
   - log_i: 'Installing Django into virtual environment ...'
   - cl_i: source bin/activate && pip install django
@@ -135,15 +140,21 @@ run_modify_settings:
 
 run_create_dockerfile:
 - if $venv:
-  - $setup_command: 'RUN yum -y install python-virtualenv && virtualenv "$basename" &&
-                     cd "$basename" && source bin/activate &&
-                     pip install -r "${basename}/requirements.txt"'
+  - if $py3:
+    - $install_command: 'RUN yum -y install python3 && pyvenv "$basename"'
+    - $pip: pip3
+  - else:
+    - $install_command: 'RUN yum -y install python-virtualenv && virtualenv "$basename"'
+    - $pip: pip
+  - $setup_command: |
+      RUN cd "$basename" && source bin/activate && $pip install -r "${basename}/requirements.txt"
 - else:
-  - $setup_command: "RUN yum -y install python${py3}-django"
+  - $install_command: "RUN yum -y install python${py3}-django"
 - jinja_render:
     template: *dockerfile
     destination: .
     data:
       basename: $basename
       venv: $venv
+      install_command: $install_command
       setup_command: $setup_command
