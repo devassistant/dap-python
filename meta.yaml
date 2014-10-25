@@ -1,0 +1,16 @@
+package_name: python
+version: 0.10.0dev
+license: GPLv2+
+authors: [Bohuslav Kabrda <bkabrda@redhat.com>, Miroslav Suchý <msuchy@redhat.com>]
+homepage: https://github.com/bkabrda/dap-python
+summary: Python assistants (library, Django, Flask, GTK3)
+bugreports: https://github.com/bkabrda/dap-python/issues
+dependencies:
+  - common_args
+  - eclipse
+  - tito
+  - vim
+description: |
+    Set of crt assistants for Python. Contains assistants that let you
+    kickstart new Django or Flask web application, pure Python library or GTK3 app.
+    Supports both Python 2 and 3.
