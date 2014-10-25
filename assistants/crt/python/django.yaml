@@ -31,10 +31,10 @@ args:
     use: vim
 
   venv:
-    use: common_args
+    use: python
 
   py3:
-    use: common_args
+    use: python
 
   docker:
     use: common_args

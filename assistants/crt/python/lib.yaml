@@ -31,7 +31,7 @@ args:
     use: vim
 
   venv:
-    use: common_args
+    use: python
 
   rpm:
     use: common_args

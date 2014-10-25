@@ -1,0 +1,18 @@
+args:
+  venv:
+    flags:
+    - --venv
+    action: store_const
+    const: venv
+    default: ''
+    help:
+      'Use virtualenv to set up project and install dependencies.'
+
+  py3:
+    flags:
+    - --py3
+    action: store_const
+    const: 3
+    default: ''
+    help: 'Use Python 3 instead of Python 2.'
+    preserved: 'python.py3'
