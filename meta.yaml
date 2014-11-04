@@ -8,6 +8,7 @@ bugreports: https://github.com/bkabrda/dap-python/issues
 dependencies:
   - common_args
   - eclipse
+  - git
   - tito
   - vim
 description: |
