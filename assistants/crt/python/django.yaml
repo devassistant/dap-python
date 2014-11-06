@@ -147,3 +147,6 @@ run_create_dockerfile:
       venv: $venv
       install_command: $install_command
       setup_command: $setup_command
+- dda_w:
+  - .
+  - docker_port_exposed: 8000
