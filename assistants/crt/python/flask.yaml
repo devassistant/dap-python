@@ -27,7 +27,7 @@ args:
     use: eclipse
 
   github:
-    use: common_args
+    use: github
 
   vim:
     use: vim

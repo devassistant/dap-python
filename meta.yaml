@@ -9,6 +9,7 @@ dependencies:
   - common_args
   - eclipse
   - git
+  - github
   - tito
   - vim
 description: |
