@@ -1,5 +1,5 @@
 package_name: python
-version: 0.10.0
+version: 0.10.1
 license: GPLv2+
 authors: [Bohuslav Kabrda <bkabrda@redhat.com>, Miroslav Suchý <msuchy@redhat.com>]
 homepage: https://github.com/bkabrda/dap-python

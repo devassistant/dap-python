@@ -37,6 +37,7 @@ run:
     create_topdir: normalized
     topdir_normalized_var: basename
 - log_i: 'Creating GTK+ 3 project $basename in $contdir ...'
+- cl: cd "$contdir"
 - cl_i: cp -r *pygtksources "$basename"
 - cl: cd "$basename"
 - cl: chmod +x template-gui.py
