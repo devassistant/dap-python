@@ -93,7 +93,9 @@ run:
 - cl: cp *gitignore .
 - use: git.init_add_commit.run
 - if defined $github:
-  - github: create_and_push
+  - github:
+    - create_and_push
+    - reponame: $basename
 - if defined $rpm:
   - cl: cp *specfile ./$basename.spec
   - cl: sed -i "s|NAME|$basename|g" ./$basename.spec

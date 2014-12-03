@@ -77,7 +77,9 @@ run:
 - cl: cp *gitignore .
 - use: git.init_add_commit.run
 - if defined $github:
-  - github: create_and_push
+  - github:
+    - create_and_push
+    - reponame: $basename
 
 - log_i: 'Django project $basename in $dirname has been created.'
 - if $venv:
