@@ -2,9 +2,9 @@ package_name: python
 version: 0.10.1
 license: GPLv2+
 authors: [Bohuslav Kabrda <bkabrda@redhat.com>, Miroslav Suchý <msuchy@redhat.com>]
-homepage: https://github.com/bkabrda/dap-python
+homepage: https://github.com/devassistant/dap-python
 summary: Python assistants (library, Django, Flask, GTK3)
-bugreports: https://github.com/bkabrda/dap-python/issues
+bugreports: https://github.com/devassistant/dap-python/issues
 dependencies:
   - common_args
   - eclipse
