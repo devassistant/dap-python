@@ -80,6 +80,7 @@ run:
   - github:
     - create_and_push
     - reponame: $basename
+      login: $github
 
 - log_i: 'Django project $basename in $dirname has been created.'
 - if $venv:

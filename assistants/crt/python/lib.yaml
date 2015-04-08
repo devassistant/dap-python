@@ -85,6 +85,7 @@ run:
   - github:
     - create_and_push
     - reponame: $basename
+      login: $github
 - if defined $rpm:
   - cl: cp *specfile ./$basename.spec
   - cl: sed -i "s|NAME|$basename|" ./$basename.spec

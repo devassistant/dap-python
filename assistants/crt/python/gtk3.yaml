@@ -52,5 +52,6 @@ run:
   - github:
     - create_and_push
     - reponame: $basename
+      login: $github
 - log_i: 'GTK+ 3 project $basename in $contdir has been created.'
 - log_i: 'To run the application use: ./template-gui.py'
